@@ -11,6 +11,7 @@ module GovTrack
         instance_eval "def #{attr}() @#{attr} end" unless self.respond_to?(attr)
       end
     end
+    
 
     def self.find(args)
       args[:limit] ||= 500 if block_given? #default to queries of 500 when a block is given
@@ -35,6 +36,10 @@ module GovTrack
 
     def self.find_by_id(id)
       new(get("/#{self.demodulized_name}/#{id}"))
+    end
+    
+    def self.get_all()
+      new(get("/#{self.demodulized_name}"))
     end
 
     def self.find_by_uri(uri)
